@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "interacticore"
+version = "0.0.1"
+description = "Python module for simplifying common patterns and class for interactgen-py, interactovery-py, and interactilogue-py modules."
+authors = ["Justin Randall <justin@sitinc.net>"]
+license = "MIT"
+
+# Define the URLs associated with your package
+repository = "https://github.com/sitinc/interacticore-py"
+homepage = "https://github.com/sitinc/interacticore-py"
+documentation = "https://github.com/sitinc/interacticore-py"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+
+# Dependencies of your project
+langchain-core = "^0.1.25"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.2"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
