@@ -26,6 +26,7 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.language_models.llms import BaseLLM
 from langchain_core.output_parsers.transform import BaseCumulativeTransformOutputParser
 from langchain_core.prompts.base import BasePromptTemplate
+from langchain_core.tracers.context import tracing_v2_enabled
 
 import random
 import time
@@ -194,11 +195,13 @@ class LangChainWrap(LangChainWrapProxy):
         """
         log.debug(f"{cmd.session_id} | {cmd.cmd_name} | Request: {cmd}")
 
-        start_time = time.time()
-        cmd_result: LangChainCommand = cmd.run(self, **kwargs)
-        end_time = time.time()
-        exec_time = end_time - start_time
-        cmd_result.exec_time = exec_time
+        lc_project: str | None = kwargs.pop('lc_project', None)
+        with tracing_v2_enabled(lc_project):
+            start_time = time.time()
+            cmd_result: LangChainCommand = cmd.run(self, **kwargs)
+            end_time = time.time()
+            exec_time = end_time - start_time
+            cmd_result.exec_time = exec_time
 
         log.debug(f"{cmd.session_id} | {cmd.cmd_name} | Response: {cmd_result}")
 
