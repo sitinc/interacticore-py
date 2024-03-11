@@ -22,11 +22,11 @@
 
 from langchain_core.prompts import PromptTemplate, HumanMessagePromptTemplate
 from langchain_core.messages import SystemMessage
-from interacticore import InteractiClient, InteractiCommand
+from interacticore import LangChainWrap, LangChainCommand
 from langchain_core.output_parsers.transform import BaseCumulativeTransformOutputParser
 
 
-class LlmCommand(InteractiCommand):
+class LlmCommand(LangChainCommand):
     """
     Command object for LLM Model chain invocations.
     """
@@ -65,7 +65,7 @@ class LlmCommand(InteractiCommand):
             ]
         )
 
-    def run(self, client: InteractiClient, **kwargs) -> InteractiCommand:
+    def run(self, client: LangChainWrap, **kwargs) -> LangChainCommand:
         base_chain = self.get_prompt_template() | client.llm | self.output_parser
 
         base_chain_result = base_chain.invoke({

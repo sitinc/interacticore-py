@@ -75,9 +75,9 @@ def retry_with_exponential_backoff(
     return wrapper
 
 
-class InteractiClientProxy(ABC):
+class LangChainWrapProxy(ABC):
     """
-    Define InteractiClient proxy interface.
+    Define LangChainWrap proxy interface.
     """
     @abstractmethod
     def execute(self, **kwargs):
@@ -85,9 +85,9 @@ class InteractiClientProxy(ABC):
         pass
 
 
-class InteractiCommand(ABC):
+class LangChainCommand(ABC):
     """
-    Abstract command object for implementing InteractiClient commands.
+    Abstract command object for implementing LangChainWrap commands.
     """
     def __init__(self,
                  *,
@@ -118,7 +118,7 @@ class InteractiCommand(ABC):
         self.result = None
 
     @abstractmethod
-    def run(self, client: InteractiClientProxy, **kwargs):
+    def run(self, client: LangChainWrapProxy, **kwargs):
         """
         Abstract method for executing command logic.
         :param client: The InteractiClient client.
@@ -145,7 +145,7 @@ class InteractiCommand(ABC):
         }
 
     def __str__(self):
-        return (f"InteractiCommand(session_id={self.session_id}" +
+        return (f"LangChainCommand(session_id={self.session_id}" +
                 f", cmd_name={self.cmd_name}" +
                 f", exec_time={self.exec_time}" +
                 # f", sys_prompt={self.sys_prompt}" +
@@ -154,7 +154,7 @@ class InteractiCommand(ABC):
                 ")")
 
     def __repr__(self):
-        return (f"InteractiCommand(session_id={self.session_id!r}" +
+        return (f"LangChainCommand(session_id={self.session_id!r}" +
                 f", cmd_name={self.cmd_name!r}" +
                 f", exec_time={self.exec_time!r}" +
                 # f", sys_prompt={self.sys_prompt!r}" +
@@ -163,9 +163,9 @@ class InteractiCommand(ABC):
                 ")")
 
 
-class InteractiClient(InteractiClientProxy):
+class LangChainWrap(LangChainWrapProxy):
     """
-    Client interface for the InteractiCore module.
+    Client for abstracting boilerplate for supporting multiple models with LangChain.
     """
     def __init__(self,
                  *,
@@ -185,7 +185,7 @@ class InteractiClient(InteractiClientProxy):
         self.llm = llm
 
     @retry_with_exponential_backoff
-    def execute(self, cmd: InteractiCommand, **kwargs) -> InteractiCommand:
+    def execute(self, cmd: LangChainCommand, **kwargs) -> LangChainCommand:
         """
         Submit a command for execution.
         :param cmd: the command instance.
@@ -195,7 +195,7 @@ class InteractiClient(InteractiClientProxy):
         log.debug(f"{cmd.session_id} | {cmd.cmd_name} | Request: {cmd}")
 
         start_time = time.time()
-        cmd_result: InteractiCommand = cmd.run(self, **kwargs)
+        cmd_result: LangChainCommand = cmd.run(self, **kwargs)
         end_time = time.time()
         exec_time = end_time - start_time
         cmd_result.exec_time = exec_time
