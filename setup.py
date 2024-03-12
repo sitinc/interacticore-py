@@ -54,6 +54,6 @@ setup(
     # for this one to be installed or used. This can be used to specify dependencies that are not
     # in the Python standard library or available on PyPI.
     extras_require={
-        'dev': ['pytest>=8.0.2', 'pytest-cov>=4.1.0'],
+        'dev': ['pytest>=8.1.1', 'pytest-cov>=4.1.0'],
     },
 )

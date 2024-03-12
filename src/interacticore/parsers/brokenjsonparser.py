@@ -47,6 +47,12 @@ def _custom_parser(multiline_string: str) -> str:
 
 
 def fix_single_quote_strings(multiline_string: str) -> str:
+    """
+    Convert single-quoted strings to double-quoted strings in a JSON array.
+    This function exists to handle intermittent issues of malformed JSON responses from LLMs.
+    :param multiline_string: The input string.
+    :return: The normalized string.
+    """
     new_str = multiline_string
 
     # Convert single-quote strings to double quote strings for arrays.
@@ -56,6 +62,12 @@ def fix_single_quote_strings(multiline_string: str) -> str:
 
 
 def fix_remove_output_header(multiline_string: str) -> str:
+    """
+    Strip leading natural language ahead of JSON response structure.
+    This function exists to handle intermittent issues of malformed JSON responses from LLMs.
+    :param multiline_string: The input string.
+    :return: The normalized string.
+    """
     new_str = multiline_string
 
     # Strip any text before the opening JSON structure
@@ -76,9 +88,9 @@ def parse_partial_json(s: str, *, strict: bool = False) -> Any:
     Returns:
         The parsed JSON object as a Python dictionary.
     """
-    # jrandall - Fix response phrase before JSON issue in some Claude responses.
+    # jrandall - Fix response phrase before JSON issue in some model responses.
     s = fix_remove_output_header(s)
-    # jrandall - Fix single-quote JSON issue in some Gemini responses.
+    # jrandall - Fix single-quote JSON issue in some model responses.
     s = fix_single_quote_strings(s)
 
     # Attempt to parse the string as-is.
