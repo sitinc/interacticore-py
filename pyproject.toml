@@ -14,7 +14,7 @@ documentation = "https://github.com/sitinc/interacticore-py"
 python = ">=3.11,<3.13"
 
 # Dependencies of your project
-langchain-core = "^0.1.25"
+langchain-core = "^0.1.31"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.2"
