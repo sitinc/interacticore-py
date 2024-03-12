@@ -102,6 +102,9 @@ class LangChainCommand(ABC):
         Construct a new instance.
         :param session_id: The session_id.
         :param cmd_name: The command name.
+        :param sys_prompt: The system prompt.  This is not a prompt template.
+        :param user_prompt_tmpl: The user prompt template.
+        :param output_parser: The specified endpoint output parser.
         """
 
         if session_id is None:
@@ -122,21 +125,23 @@ class LangChainCommand(ABC):
     def run(self, client: LangChainWrapProxy, **kwargs):
         """
         Abstract method for executing command logic.
-        :param client: The InteractiClient client.
-        :param kwargs: Additional parameters to pass into langchain, and underlying frameworks.
+        :param client: The LangChainWrap client.
+        :param kwargs: Additional parameters for underlying models, endpoints, and frameworks.
         """
         pass
 
     @abstractmethod
     def get_prompt_template(self) -> BasePromptTemplate:
         """
-        Abstract method retrieving the prompt template for LLM or chat models.
+        Abstract method for retrieving the prompt template for LLM or chat models.
+        :return: The prompt template.
         """
         pass
 
     def output_key(self):
         """
-        Implement output_key for base class.
+        Get the command output_key for base class for quick debugging.
+        :return: The command output key.
         """
         return {
             'session_id': self.session_id,
@@ -190,7 +195,7 @@ class LangChainWrap(LangChainWrapProxy):
         """
         Submit a command for execution.
         :param cmd: the command instance.
-        :param kwargs: Additional parameters to pass into langchain, and underlying frameworks.
+        :param kwargs: Additional parameters for underlying models, endpoints, and frameworks.
         :return: The completed command instance.
         """
         log.debug(f"{cmd.session_id} | {cmd.cmd_name} | Request: {cmd}")
