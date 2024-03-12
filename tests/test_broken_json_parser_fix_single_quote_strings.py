@@ -130,7 +130,7 @@ from interacticore.parsers.brokenjsonparser import fix_single_quote_strings
 """,
      ),
 ])
-def test_broken_json_parser(test_name: str, in_str: str, expected: str):
+def test_fix_single_quote_strings(test_name: str, in_str: str, expected: str):
     result = fix_single_quote_strings(in_str)
     if result != expected:
         print(f"{test_name}: result: {result}")

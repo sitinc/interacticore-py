@@ -49,8 +49,17 @@ def _custom_parser(multiline_string: str) -> str:
 def fix_single_quote_strings(multiline_string: str) -> str:
     new_str = multiline_string
 
-    # Handle fixing bounded single-quote strings for arrays.
+    # Convert single-quote strings to double quote strings for arrays.
     new_str = re.sub(r"([\[,\s])'(.*?)'([],\s])", r'\1"\2"\3', new_str)
+
+    return new_str
+
+
+def fix_remove_output_header(multiline_string: str) -> str:
+    new_str = multiline_string
+
+    # Strip any text before the opening JSON structure
+    new_str = re.sub(r"^.*?(```json\s*?)?{", r'\1{', new_str, flags=re.DOTALL)
 
     return new_str
 
@@ -67,7 +76,9 @@ def parse_partial_json(s: str, *, strict: bool = False) -> Any:
     Returns:
         The parsed JSON object as a Python dictionary.
     """
-    # jrandall - Fix single-quote JSON issue in some model responses.
+    # jrandall - Fix response phrase before JSON issue in some Claude responses.
+    s = fix_remove_output_header(s)
+    # jrandall - Fix single-quote JSON issue in some Gemini responses.
     s = fix_single_quote_strings(s)
 
     # Attempt to parse the string as-is.

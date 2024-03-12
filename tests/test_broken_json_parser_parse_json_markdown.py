@@ -49,8 +49,36 @@ from interacticore.parsers.brokenjsonparser import parse_json_markdown
 {"utterances": ["Thank you so much for your assistance!", "I value your support.", "You've been incredibly helpful.", 'I appreciate your time and effort.', "I'm thankful for your guidance.", "You've been very supportive.", 'I appreciate your advice.', 'Thank you for your understanding.', "You've simplified this process for me.", "I'm grateful for your assistance.", "You're a lifesaver!", "I don't know what I would have done without you.", "You've exceeded my expectations.", "I'm very impressed with your service.", "You're a valuable resource.", "I'll definitely be recommending you to others.", 'Thank you again for your help.', "I'm so appreciative of your support.", "You've made my day!", 'Thanks!', 'I like your assistance.', 'You aided me.', 'Thanks.', 'I like your assistance.', 'You aided me.', 'I like your assistance.', 'Thanks.', 'You helped me.', 'I like your assistance.', 'You helped me.', 'I like your assistance.', 'You helped me.', 'I like your assistance.', 'You helped me.', 'I like your assistance.', 'You helped me.', 'I like your assistance.', 'You helped me.', 'Thanks', 'Appreciate', 'Helpful', 'Time', 'Grateful', 'Easy', 'Glad', 'Lifesaver', 'Recommend', 'Support', 'Day']}
 ```""",
      ),
+    ("Test 3",
+     """Here is the response formatted as the specified JSON schema:
+
+{
+  "utterances": [
+    "Thanks a ton, you rock!",
+    "Really appreciate the help.",
+    "Couldn't have done it without ya, thanks!",
+    "You're the best, thanks a bunch!",
+    "So grateful for your support, thanks.",
+    "Appreciate you taking the time, thanks!",
+    "Your help's been invaluable, thanks a mil!",
+    "Can't thank you enough for the guidance.",
+    "Thanks for being so patient and helpful.",
+    "Truly appreciate you going above and beyond.",
+    "Thanks for always being there to help.",
+    "You make it so easy, thank you!",
+    "Appreciate your expertise and willingness.",
+    "Thanks for the great service.",
+    "Your support means everything, thanks!",
+    "Impressed with your helpfulness, thanks!",
+    "You've been amazing, can't thank you enough.",
+    "Thanks for the dedication in assisting me.", 
+    "Sincerely appreciate the fantastic help.",
+    "You're a lifesaver, thanks for the hard work!"
+  ]
+}""",
+     ),
 ])
-def test_broken_json_parser(test_name: str, in_str: str):
+def test_parse_json_markdown(test_name: str, in_str: str):
     json_result = parse_json_markdown(in_str)
     print(f"test_name: {test_name}, json_result: {json_result}")
     assert True
