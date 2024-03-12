@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "interacticore"
-version = "0.0.3"
+version = "0.0.4"
 description = "Python module for simplifying common patterns and class for interactgen-py, interactovery-py, and interactilogue-py modules."
 authors = ["Justin Randall <justin@sitinc.net>"]
 license = "MIT"
