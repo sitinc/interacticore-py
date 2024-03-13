@@ -33,4 +33,4 @@ contains examples of using the Interactigen client, which wraps around the inter
 This module is something I am putting together to allow everyone to have easy-to-use tools to generate interactional 
 data.  This project is not polished production code, but something I am building publicly as part of a blog series that 
 will improve slowly over time.  Sometimes, those changes are going to be breaking.  I'll start considering commitments 
-to backwards compatibility once we hit v1.0.0.  ;)
+to backwards compatibility once the project reaches v1.0.0.  ;)
